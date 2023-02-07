@@ -44,6 +44,9 @@ class SFTPRequestHandler(StreamRequestHandler):
 
 
 class SFTPServer(Thread, ThreadingMixIn, TCPServer):
+    daemon_threads = True
+    block_on_close = False
+    
     def __init__(self, content_object=None, content_provider_class=ContentProvider):
         self.content_provider = content_provider_class(content_object)
         TCPServer.__init__(self, ("127.0.0.1", 0), SFTPRequestHandler, False)
